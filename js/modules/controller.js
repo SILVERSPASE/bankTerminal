@@ -1,6 +1,19 @@
+app.config(function ($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'templates/mainPage.html',
+      controller: 'myCtrl'
+    })
+    .when('/userPage', {
+      templateUrl: 'templates/userPage.html',
+      controller: 'myCtrl'
+    })
+});
+
+
 app.controller('myCtrl', function($scope){
 	$scope.reverse = true;
-	$scope.setOrder = '-name';
+	$scope.setOrder = 'name';
 
 // ключ - паспорт!
 	$scope.cardList = {
@@ -70,7 +83,7 @@ app.controller('myCtrl', function($scope){
 		}
 	};
 
-	$scope.addNew = function(pasport, name){
+	$scope.addNewUser = function(pasport, name){
 		if (pasport && name){
 					for(key in $scope.cardList){
 			if(key == pasport){
@@ -89,8 +102,11 @@ app.controller('myCtrl', function($scope){
 		}
 	}
 
-	$scope.consoleLog = function (){
-		console.log('test');
-		console.log($scope.setOrder);
+	$scope.addNewCard = function(passport, balance){
+
 	}
+
+
+
 });
+

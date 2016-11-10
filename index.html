@@ -4,60 +4,21 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.js"></script>
 <script src="js/app.js"></script>
 <script src="js/modules/controller.js"></script>
 
 
-<body data-ng-app = 'app' data-ng-click = 'consoleLog()'>
+<body data-ng-app = 'app'>
 	<div  data-ng-controller = 'myCtrl'>
 		<div class="container">
-			<div class="row"> 	
-				<div class="createNewCard">
-					<input type="text" data-ng-model = 'name'  placeholder="Имя" >
-					<input type="text" data-ng-model = 'pasport'  placeholder="Номер паспорта">
-					<button data-ng-click = 'addNew(pasport, name)'>Создать новую карточку</button>
-				</div>
-				<div class="cardList">
-					Список карточек
-					<table>
-						<tr>
-							<th>#</th>
-							<th data-ng-click = 'setOrder = "pasport"; reverse = !reverse'>Паспорт</th>
-							<th data-ng-click = 'setOrder = "name"; reverse = !reverse'>Владелец</th>
-							<th>Номер</th>	
-							<th>Баланс</th>
-							<th>Валюта</th>
-							<th>Статус</th>
-						</tr>
-						<tr data-ng-repeat = '(cardKey, cardValue) in cardList | orderBy:setOrder:reverse' >
-							<td>{{$index+1}}</td>
-							<td>{{cardKey}}</td>
-							<td>{{cardValue.name}}</td>
-							<td>
-								<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in cardValue.cardInfo'>
-									{{cardInfoValue.number}}
-								</span>
-							</td>
-							<td>
-								<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in cardValue.cardInfo'>
-									{{cardInfoValue.balance}}
-								</span>
-							</td>
-							<td>
-								<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in cardValue.cardInfo'>
-									{{cardInfoValue.currency}}
-								</span>
-							</td>
-							<td>
-								<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in cardValue.cardInfo'>
-									{{cardInfoValue.status}}
-								</span>
-							</td>
+			<div class="row"> 
 
-						</tr>
-						<tr class="clearfix"></tr>
-					</table>
-				</div>
+				<a href="#/">Home</a>
+  				<a href="#/posts">Posts</a>
+
+				<ng-view></ng-view>	
+				
 			</div>
 		</div>
 	</div>
