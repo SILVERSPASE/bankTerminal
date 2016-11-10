@@ -1,13 +1,11 @@
 app.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'templates/mainPage.html',
-      controller: 'myCtrl'
+      templateUrl: 'mainPage.html'
     })
     .when('/userPage', {
-      templateUrl: 'templates/userPage.html',
-      controller: 'myCtrl'
-    })
+      templateUrl: 'userPage.html'
+    });
 });
 
 
@@ -102,11 +100,15 @@ app.controller('myCtrl', function($scope){
 		}
 	}
 
-	$scope.addNewCard = function(passport, balance){
+	// $scope.addNewCard = function(passport, balance){
 
-	}
+	// }
 
 
-
+	$scope.createActiveUser = function(cardKey){
+		$scope.activeUser = {};
+		$scope.activeUser[cardKey] = $scope.cardList[cardKey];
+		console.log($scope.activeUser);
+	};
 });
 
