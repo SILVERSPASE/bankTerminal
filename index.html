@@ -87,7 +87,9 @@
 				<td>{{userKey}}</td>
 			</tr>
 		</table>
-		<button data-ng-click = 'addNewCard(pasport, name)'>Добавить карточку</button>
+		<input type="text" data-ng-model = 'balance'>
+		<input type="text" data-ng-model = 'pinCode'>
+		<button data-ng-click = 'addNewCard(balance, pinCode, userKey)'>Добавить карточку</button>
 	</div>
 </script>
 

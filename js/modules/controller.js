@@ -83,11 +83,11 @@ app.controller('myCtrl', function($scope){
 
 	$scope.addNewUser = function(pasport, name){
 		if (pasport && name){
-					for(key in $scope.cardList){
-			if(key == pasport){
-				console.log('This user already exist!');
-				return;
-			} 
+			for(key in $scope.cardList){
+				if(key == pasport){
+					console.log('This user already exist!');
+					return;
+				} 
 		}
 
 		$scope.cardList[pasport] = {
@@ -100,15 +100,21 @@ app.controller('myCtrl', function($scope){
 		}
 	}
 
-	// $scope.addNewCard = function(passport, balance){
+	$scope.addNewCard = function(balance, pinCode, userKey){
+		var count = 1;
+		for (key in $scope.activeUser[userKey].cardInfo) { count++};
+			console.log(count);
+		$scope.activeUser[userKey].cardInfo.count = 
+			{	balance: balance,
+				pinCode: pinCode
+			};
 
-	// }
+	}
 
 
 	$scope.createActiveUser = function(cardKey){
 		$scope.activeUser = {};
 		$scope.activeUser[cardKey] = $scope.cardList[cardKey];
-		console.log($scope.activeUser);
 	};
 });
 
