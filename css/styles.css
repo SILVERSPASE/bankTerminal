@@ -1,10 +1,14 @@
 body{background: #0d2b28;padding-top: 50px;font-size:20px;color: #c4e0ff;font-weight: 600;}
-th, td {padding: 5px 10px;border-bottom: 1px solid #427570;}
+tr {border-bottom: 1px solid #427570;}
+th, td {padding: 5px 10px;}
 td span{display: block;}
 input, select {color:#2169b9; padding: 0 5px; margin: 5px 0; line-height: 30px; height: 30px;}
+table {width: 100%;}
 
 button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
 a:hover, button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc;}
-.billPanel {padding: 30px 10px 10px 10px;display: inline-block;}
+.billPanel {padding: 30px 10px 10px 10px;display: inline-block;width: 100%;}
 .billPanel select, .billPanel input, .billPanel button {width: 100%;}
-
+.billPanel label {display:block;line-height: 45px;}
+.billPanel label input{width: 10%;}
+.billPanel label span{width: 70%;display: inline-block;line-height: 45px;height: 40px;vertical-align: text-bottom;}

@@ -6,6 +6,20 @@ app.controller('mainCtrl', function($scope){
 // ключ - паспорт!
 	$scope.userList = {
 		"st1": {	name: 'Max',
+					history: {
+				1: {	date: "10.08.16",
+						sum: "-3004",
+						currency: 'uah',
+						from: 1004,
+						to: 1006
+					},
+				2: {	date: "10.08.16",
+						sum: "-3004",
+						currency: 'uah',
+						from: 1004,
+						to: 1006
+					}
+				},
 					cardInfo: {
 				1: {	number: 1000,
 						balance: 300,
@@ -22,6 +36,7 @@ app.controller('mainCtrl', function($scope){
 			}
 		},
 		"rk2": {	name: 'German',
+					history: {},
 					cardInfo: {
 				1: {	number: 1002,
 						balance: 300,
@@ -38,6 +53,7 @@ app.controller('mainCtrl', function($scope){
 			}
 		},
 		"rt3": 	{	name: 'Oleg',
+					history: {},
 					cardInfo: {
 				1: {	number: 1004,
 						balance: 305,
@@ -54,6 +70,7 @@ app.controller('mainCtrl', function($scope){
 			}
 		},
 		"sd4": 	{	name: 'Vova',
+					history: {},
 					cardInfo: {
 				1: {	number: 1006,
 						balance: 305,
@@ -71,6 +88,18 @@ app.controller('mainCtrl', function($scope){
 		}
 	};
 
+	$scope.cardList = [];
+	for (key in $scope.userList){
+		for (card in $scope.userList[key].cardInfo){
+			$scope.cardList.push({
+				userKey: key,
+				cardKey: card,
+				number: $scope.userList[key].cardInfo[card].number
+			});
+		}
+	console.log($scope.cardList);
+	}
+
 	$scope.addNewUser = function(pasport, name){
 		if (pasport && name){
 			for(key in $scope.userList){
@@ -82,6 +111,7 @@ app.controller('mainCtrl', function($scope){
 
 		$scope.userList[pasport] = {
 			name: name,
+			history: {},
 			cardInfo : {}
 		};
 
@@ -97,9 +127,7 @@ app.controller('mainCtrl', function($scope){
 
 
 	$scope.addNewCard = function(pinCode, currency, balance, userKey){
-	var count = 1;
-	for (key in $scope.activeUser[userKey].cardInfo) { count++};
-		$scope.activeUser[userKey].cardInfo[count]= 
+		$scope.activeUser[userKey].cardInfo[Object.keys($scope.activeUser[userKey].cardInfo).length+1]= 
 			{	
 				number: 1000 + $scope.globalCardCount++,
 				balance: balance,
@@ -115,12 +143,29 @@ app.controller('mainCtrl', function($scope){
 	}
 
 	$scope.makePay = function(userKey,cardInfoKey, sum, destination){
-		// console.log($scope.activeUser[userKey].cardInfo[cardInfoKey].balance);
-		$scope.activeUser[userKey].cardInfo[cardInfoKey].balance -= sum;
+		if($scope.activeUser[userKey].cardInfo[cardInfoKey].status){
+			$scope.activeUser[userKey].cardInfo[cardInfoKey].balance -= sum;
+			$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
+				date: Date.now(),
+				sum: "-" + sum,
+				currency: $scope.activeUser[userKey].cardInfo[cardInfoKey].currency,
+				from: $scope.activeUser[userKey].cardInfo[cardInfoKey].number,
+				to: destination
+			}
+		}
 	}
 
-	$scope.addFunds = function(userKey,cardInfoKey, sum, destination){
-		$scope.activeUser[userKey].cardInfo[cardInfoKey].balance += parseInt(sum);
+	$scope.addFunds = function(userKey,cardInfoKey, sum){
+		if($scope.activeUser[userKey].cardInfo[cardInfoKey].status){
+			$scope.activeUser[userKey].cardInfo[cardInfoKey].balance += parseInt(sum);
+			$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
+				date: Date.now(),
+				sum: "+" + sum,
+				currency: $scope.activeUser[userKey].cardInfo[cardInfoKey].currency,
+				from: "addFunds",
+				to: $scope.activeUser[userKey].cardInfo[cardInfoKey].number
+			}
+		}
 	}
 
 
