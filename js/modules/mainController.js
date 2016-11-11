@@ -128,7 +128,7 @@ app.controller('mainCtrl', function($scope){
 		$scope.activeUser[userKey].cardInfo[Object.keys($scope.activeUser[userKey].cardInfo).length+1]= 
 			{	
 				number: 1000 + $scope.globalCardCount++,
-				balance: balance,
+				balance: parseInt(balance),
 				currency: currency,
 				status: true,
 				pinCode: pinCode
