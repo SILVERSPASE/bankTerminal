@@ -187,7 +187,7 @@
 							<input type="text" data-ng-model = 'sum' placeholder = 'sum'>
 							<select name="makePay" id="makePay" data-ng-model = 'receiver'>
 								<option value="" disabled selected>Карта получателя</option>
-								<option data-ng-repeat = '(cardListKey, cardListValue) in cardList'' value="{{cardListValue.number}}">
+								<option data-ng-repeat = '(cardListKey, cardListValue) in cardList' value="{{cardListKey}}">
 									{{cardListValue.number}} : {{userList[cardListValue.userKey].name}}
 								</option>
 							</select>
