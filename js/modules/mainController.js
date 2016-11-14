@@ -1,19 +1,37 @@
+app.directive('popUpMsg', function(){
+  return {
+    restrict: 'E',
+    scope: false,
+    template: '<div id="popUpMsg-bg" ng-show="showPopUpMsg"><div id="popUpMsg"><div class="close" ng-click="closePopUp()">x</div><div class="content">{{popUpMsgContent}}</div><button ng-click="closePopUp()" class="button">Ok</button></div></div>',
+    controller: function($scope) {
+      $scope.closePopUp = function(){
+        $scope.showPopUpMsg = false;
+      }
+    }
+  }
+})
+
 app.controller('mainCtrl', function($scope){
 	$scope.reverse = false;
 	$scope.setOrder = 'name';
 	$scope.globalCardCount = 8;
+	$scope.secondSubmit = false;
+
+	// $scope.showSecondSubmit = function(){
+	// 	this.
+	// }
 
 // ключ - паспорт!
 	$scope.userList = {
 		"st1": {	name: 'Max',
 					history: {
-				1: {	date: "10.08.16",
+				1: {	date: "14.11.16 14:06",
 						sum: "-3004",
-						currency: 'uah',
+						currency: 'uah',	
 						from: 1004,
 						to: 1006
 					},
-				2: {	date: "10.08.16",
+				2: {	date: "10.08.16 13:36",
 						sum: "-3004",
 						currency: 'uah',
 						from: 1004,
@@ -99,11 +117,25 @@ app.controller('mainCtrl', function($scope){
 		}
 	}
 
+	$scope.currencyList = {
+		'euro': 30,
+		'usd' : 27
+		}
+
+
+	// controller for dialog popUpMsg
+		$scope.showPopUpMsg = false;
+		$scope.openPopUp = function( text ) {
+			$scope.showPopUpMsg = true;
+			$scope.popUpMsgContent = text;
+		}
+	// end controller for dialog popUpMsg
+
 	$scope.addNewUser = function(pasport, name){
 		if (pasport && name){
 			for(key in $scope.userList){
 				if(key == pasport){
-					console.log('This user already exist!');
+					$scope.openPopUp('Пользователь уже есть в базе!');
 					return;
 				} 
 			}
@@ -119,9 +151,11 @@ app.controller('mainCtrl', function($scope){
 		}
 	}
 
+// choosing user for open User cabinet
 	$scope.createActiveUser = function(cardKey){
 		$scope.activeUser = {};
 		$scope.activeUser[cardKey] = $scope.userList[cardKey];
+
 	};
 
 	$scope.addNewCard = function(pinCode, currency, balance, userKey){
@@ -133,26 +167,55 @@ app.controller('mainCtrl', function($scope){
 				status: true,
 				pinCode: pinCode
 			};
-
+			$scope.cardList.push({
+				userKey: userKey,
+				cardKey: Object.keys($scope.activeUser[userKey].cardInfo).length+1,
+				number: $scope.userList[userKey].cardInfo[Object.keys($scope.activeUser[userKey].cardInfo).length].number
+			});
 		this.pinCode = '';
-		this.currency = '';
+		// this.currency = 1000;
 		this.balance = '';
+	};
 
+	$scope.deleteCard = function(userKey, cardInfoKey){
+		if ($scope.userList[userKey].cardInfo[cardInfoKey].balance == 0){
+			$scope.openPopUp('Карточка №' + $scope.userList[userKey].cardInfo[cardInfoKey].number + ' успешно удалена!');
+			delete $scope.userList[userKey].cardInfo[cardInfoKey];
+		} else {
+			$scope.openPopUp('Чтобы удалить карточку, прировняйте баланс к нулю.');
+		}
 	}
 
 	$scope.makePay = function(userKey,cardInfoKey, sum, cardListKey){
 		if($scope.activeUser[userKey].cardInfo[cardInfoKey].status){
-			$scope.activeUser[userKey].cardInfo[cardInfoKey].balance -= sum;
-			// console.log($scope.cardList[cardListKey].userKey);
-			$scope.userList[$scope.cardList[cardListKey].userKey].cardInfo[$scope.cardList[cardListKey].cardKey].balance += parseInt(sum);
-			$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
-				date: Date.now(),
-				sum: "-" + sum,
-				currency: $scope.activeUser[userKey].cardInfo[cardInfoKey].currency,
-				from: $scope.activeUser[userKey].cardInfo[cardInfoKey].number,
-				to: cardListKey
+			if ($scope.activeUser[userKey].cardInfo[cardInfoKey].currency == $scope.userList[$scope.cardList[cardListKey].userKey].cardInfo[$scope.cardList[cardListKey].cardKey].currency){
+				$scope.activeUser[userKey].cardInfo[cardInfoKey].balance -= sum;
+				$scope.userList[$scope.cardList[cardListKey].userKey].cardInfo[$scope.cardList[cardListKey].cardKey].balance += parseInt(sum);
+				$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "-" + sum,
+					currency: $scope.activeUser[userKey].cardInfo[cardInfoKey].currency,
+					from: $scope.activeUser[userKey].cardInfo[cardInfoKey].number,
+					to: $scope.cardList[cardListKey].number
+				}
+				$scope.userList[$scope.cardList[cardListKey].userKey].history[Object.keys($scope.userList[$scope.cardList[cardListKey].userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "+" + sum,
+					currency: $scope.activeUser[userKey].cardInfo[cardInfoKey].currency,
+					from: $scope.activeUser[userKey].cardInfo[cardInfoKey].number,
+					to: $scope.cardList[cardListKey].number
+				}
+				$scope.openPopUp('сумма ' + sum + ' на кароточку ' + $scope.cardList[cardListKey].number + ' переведена успешно!');
+			} else {
+				$scope.openPopUp('Разная валюта!');
 			}
+		} else {
+			$scope.openPopUp('Ваша карточка заблокирована!');
 		}
+
+		// this.userKey = '';
+		this.sum = '';
+		// this. = '';
 	}
 
 	$scope.addFunds = function(userKey,cardInfoKey, sum){
@@ -165,13 +228,12 @@ app.controller('mainCtrl', function($scope){
 				from: "addFunds",
 				to: $scope.activeUser[userKey].cardInfo[cardInfoKey].number
 			}
+			$scope.openPopUp('Средства успешно начислены на карту!');
+		}	else {
+			$scope.openPopUp('Ваша карточка заблокирована!');
 		}
 	}
-
-
-
 });
-
 
 
 app.filter('customFilter', function() {

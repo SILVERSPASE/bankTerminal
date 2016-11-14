@@ -5,10 +5,32 @@ td span{display: block;}
 input, select {color:#2169b9; padding: 0 5px; margin: 5px 0; line-height: 30px; height: 30px;}
 table {width: 100%;}
 
-button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
-a:hover, button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc;}
+button, .button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
+a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc; cursor: pointer;}
 .billPanel {padding: 30px 10px 10px 10px;display: inline-block;width: 100%;}
 .billPanel select, .billPanel input, .billPanel button {width: 100%;}
 .billPanel label {display:block;line-height: 45px;}
 .billPanel label input{width: 10%;}
 .billPanel label span{width: 70%;display: inline-block;line-height: 45px;height: 40px;vertical-align: text-bottom;}
+.currencyCourse{text-align: right;}
+.currencyCourse span{display: inline-block; padding: 15px;}
+
+
+/*
+
+
+
+ .css-form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  }
+
+  .css-form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+  }
+
+
+.idialog {position:fixed; left:50%; top:50%; z-index:100; background:#fff; min-width:400px; max-width:1000px; min-height:200px;}
+.idialog > .w {padding:16px 20px;}
+.idialog-overlay {position:fixed; top:0; right:0; bottom:0; left:0; background:#000; z-index:90; opacity:0.5;}
+.idialog-overlay .l {display:block; width:160px; height:24px; position:fixed; left:50%; top:50%; margin:-12px 0 0 -80px; z-index:91; content:'Загрузка...';}
+*/
