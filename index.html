@@ -170,6 +170,10 @@
 					<span>Провести платеж</span>
 				</label>
 				<label>
+					<input type="radio" ng-model="billPoint" value="changeCurrency" name="changeCurrency" />
+					<span>В другую валюту</span>
+				</label>
+				<label>
 					<input type="radio" ng-model="billPoint" value="addFunds" name="addFunds" />
 					<span>Пополнить баланс</span>
 				</label>
@@ -209,9 +213,24 @@
 									{{cardListValue.number}} : {{userList[cardListValue.userKey].name}}
 								</option>
 							</select>
-
 							<button data-ng-click = 'makePay(userKey,cardInfoKey, sum, receiver)'>Перевести средства</button>
 						</div>
+					</div>
+					<div ng-switch-when="changeCurrency">
+						<select name="changeCurrency" id="changeCurrency" data-ng-model = 'cardInfoKey2' >
+							<option value="" disabled selected>Ваша карта</option>
+							<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+								{{cardInfoValue.number}}
+							</option>
+						</select>
+						<input type="number" data-ng-model = 'sum2' min="0" placeholder = 'сумма' required>
+						<select name="changeCurrency" id="changeCurrency" data-ng-model = 'receiver2' required>
+							<option value="" disabled selected>Карта получателя</option>
+							<option data-ng-repeat = '(cardListKey, cardListValue) in cardList' value="{{cardListKey}}">
+								{{cardListValue.number}} : {{userList[cardListValue.userKey].name}}
+							</option>
+						</select>
+						<button data-ng-click = 'changeCurrency(userKey,cardInfoKey2, sum2, receiver2)'>Перевести средства</button>
 					</div>
 
 					<div ng-switch-when="addFunds">
