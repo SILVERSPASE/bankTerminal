@@ -36,26 +36,31 @@ $scope.makePay = function(userKey,cardInfoKey, sum, cardListKey){
 	$scope.anotherCard = $scope.userList[$scope.cardList[cardListKey].userKey].cardInfo[$scope.cardList[cardListKey].cardKey];
 	if($scope.thisUserCard.status){
 		if ($scope.thisUserCard.currency == $scope.anotherCard.currency){
-			$scope.thisUserCard.balance -= sum;
-			$scope.anotherCard.balance += parseInt(sum);
-			$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
-				date: Date.now(),
-				sum: "-" + sum,
-				currency: $scope.thisUserCard.currency,
-				from: $scope.thisUserCard.number,
-				to: $scope.cardList[cardListKey].number
+			if($scope.thisUserCard.number != $scope.anotherCard.number){
+				$scope.thisUserCard.balance -= sum;
+				$scope.anotherCard.balance += parseInt(sum);
+				$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "-" + sum,
+					currency: $scope.thisUserCard.currency,
+					from: $scope.thisUserCard.number,
+					to: $scope.cardList[cardListKey].number
+				}
+				$scope.userList[$scope.cardList[cardListKey].userKey].history[Object.keys($scope.userList[$scope.cardList[cardListKey].userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "+" + sum,
+					currency: $scope.thisUserCard.currency,
+					from: $scope.thisUserCard.number,
+					to: $scope.cardList[cardListKey].number
+				}
+				$scope.openPopUp('сумма ' + sum + ' на кароточку ' + $scope.cardList[cardListKey].number + ' переведена успешно!');
+				this.sum = '';
+				this.cardInfoKey = '';
+				this.cardListKey = '';
+				$scope.scanForDebtor();
+			} else {
+				$scope.openPopUp('Выбрана одна и та же карточка!');
 			}
-			$scope.userList[$scope.cardList[cardListKey].userKey].history[Object.keys($scope.userList[$scope.cardList[cardListKey].userKey].history).length+1] = {
-				date: Date.now(),
-				sum: "+" + sum,
-				currency: $scope.thisUserCard.currency,
-				from: $scope.thisUserCard.number,
-				to: $scope.cardList[cardListKey].number
-			}
-			$scope.openPopUp('сумма ' + sum + ' на кароточку ' + $scope.cardList[cardListKey].number + ' переведена успешно!');
-			this.sum = '';
-			this.cardInfoKey = '';
-			this.cardListKey = '';
 		} else {
 			$scope.openPopUp('Разная валюта! Выберите другую карточку.');
 		}
@@ -69,49 +74,58 @@ $scope.changeCurrency = function(userKey,cardInfoKey, sum, cardListKey){
 	$scope.anotherUserCard = $scope.userList[$scope.cardList[cardListKey].userKey].cardInfo[$scope.cardList[cardListKey].cardKey];
 	$scope.course = 1;
 	if($scope.thisUserCard.status){
-		if ($scope.thisUserCard.currency == 'uah' && $scope.anotherUserCard.currency == 'usd' ){
-			$scope.course = 1/$scope.currencyList.usd;
-		}
-		if ($scope.thisUserCard.currency == 'uah' && $scope.anotherUserCard.currency == 'euro' ){
-			$scope.course = 1/$scope.currencyList.euro;
-		}
-		if ($scope.thisUserCard.currency == 'usd' && $scope.anotherUserCard.currency == 'uah' ){
-			$scope.course = $scope.currencyList.usd;
-		}
-		if ($scope.thisUserCard.currency == 'euro' && $scope.anotherUserCard.currency == 'uah' ){
-			$scope.course = $scope.currencyList.euro;
-		}
-		if ($scope.thisUserCard.currency == 'euro' && $scope.anotherUserCard.currency == 'usd' ){
-			$scope.course = $scope.currencyList.euro / $scope.currencyList.usd;
-		}
-		if ($scope.thisUserCard.currency == 'usd' && $scope.anotherUserCard.currency == 'euro' ){
-			$scope.course = $scope.currencyList.usd / $scope.currencyList.euro;
-		}
+		if ($scope.thisUserCard.number != $scope.anotherUserCard.number){
+			if($scope.thisUserCard.currency != $scope.anotherUserCard.currency){
+				if ($scope.thisUserCard.currency == 'uah' && $scope.anotherUserCard.currency == 'usd' ){
+					$scope.course = 1/$scope.currencyList.usd;
+				}
+				if ($scope.thisUserCard.currency == 'uah' && $scope.anotherUserCard.currency == 'euro' ){
+					$scope.course = 1/$scope.currencyList.euro;
+				}
+				if ($scope.thisUserCard.currency == 'usd' && $scope.anotherUserCard.currency == 'uah' ){
+					$scope.course = $scope.currencyList.usd;
+				}
+				if ($scope.thisUserCard.currency == 'euro' && $scope.anotherUserCard.currency == 'uah' ){
+					$scope.course = $scope.currencyList.euro;
+				}
+				if ($scope.thisUserCard.currency == 'euro' && $scope.anotherUserCard.currency == 'usd' ){
+					$scope.course = $scope.currencyList.euro / $scope.currencyList.usd;
+				}
+				if ($scope.thisUserCard.currency == 'usd' && $scope.anotherUserCard.currency == 'euro' ){
+					$scope.course = $scope.currencyList.usd / $scope.currencyList.euro;
+				}
 
-		$scope.thisUserCard.balance -= sum;
-		$scope.anotherUserCard.balance += parseInt(sum) * $scope.course;
+				$scope.thisUserCard.balance -= sum;
+				$scope.anotherUserCard.balance += parseInt(sum) * $scope.course;
 
-		$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
-			date: Date.now(),
-			sum: "-" + sum,
-			currency: $scope.thisUserCard.currency,
-			from: $scope.thisUserCard.number,
-			to: $scope.cardList[cardListKey].number
-		}
-		$scope.userList[$scope.cardList[cardListKey].userKey].history[Object.keys($scope.userList[$scope.cardList[cardListKey].userKey].history).length+1] = {
-			date: Date.now(),
-			sum: "+" + parseInt(sum) * $scope.course,
-			currency: $scope.anotherUserCard.currency,
-			from: $scope.thisUserCard.number,
-			to: $scope.cardList[cardListKey].number
-		}
-
+				$scope.userList[userKey].history[Object.keys($scope.userList[userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "-" + sum,
+					currency: $scope.thisUserCard.currency,
+					from: $scope.thisUserCard.number,
+					to: $scope.cardList[cardListKey].number
+				}
+				$scope.userList[$scope.cardList[cardListKey].userKey].history[Object.keys($scope.userList[$scope.cardList[cardListKey].userKey].history).length+1] = {
+					date: Date.now(),
+					sum: "+" + parseInt(sum) * $scope.course,
+					currency: $scope.anotherUserCard.currency,
+					from: $scope.thisUserCard.number,
+					to: $scope.cardList[cardListKey].number
+				}
 		this.sum = '';
 		this.cardInfoKey = '';
 		this.cardListKey = '';
+		$scope.scanForDebtor();
 
 		$scope.openPopUp('сумма ' + sum + $scope.thisUserCard.currency + ' на кароточку ' + $scope.cardList[cardListKey].number + 
 			' по курсу ' + $scope.course.toFixed(3) +  $scope.thisUserCard.currency + ' : 1' + $scope.anotherUserCard.currency + ' переведена успешно!');
+				} else {
+					$scope.openPopUp('Одинаковая валюта! Выберите другую карточку.');
+				
+			}
+		} else {
+			$scope.openPopUp('Выбрана одна и та же карточка!');
+		}
 	} else {
 		$scope.openPopUp('Ваша карточка заблокирована!');
 	}
@@ -128,6 +142,7 @@ $scope.addFunds = function(userKey,cardInfoKey, addSum){
 			to: $scope.activeUser[userKey].cardInfo[cardInfoKey].number
 		}
 		$scope.openPopUp('Средства успешно начислены на карту!');
+		$scope.scanForDebtor();
 	}	else {
 		$scope.openPopUp('Ваша карточка заблокирована!');
 	}

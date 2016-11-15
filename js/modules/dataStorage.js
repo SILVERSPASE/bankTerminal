@@ -54,11 +54,11 @@ app.service('$dataStorage', function () {
 					},
 			}
 		},
-		"rt3": 	{	name: 'Oleg',
+		"rt3": 	{	name: 'Markus',
 					history: {},
 					cardInfo: {
 				1: {	number: 1004,
-						balance: 305,
+						balance: -305,
 						currency: 'uah',
 						status: true,
 						pinCode: '1111'
@@ -107,5 +107,4 @@ app.service('$dataStorage', function () {
 	this.getCardList = function(){
 		return cardList;
 	};
-
 });

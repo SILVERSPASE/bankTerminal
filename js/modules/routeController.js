@@ -8,5 +8,8 @@ app.config(function ($routeProvider) {
     })
     .when('/ocean', {
       templateUrl: 'ocean.html'
+    })
+    .when('/debtor', {
+      templateUrl: 'debtor.html'
     });
 });
