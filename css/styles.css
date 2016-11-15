@@ -14,23 +14,13 @@ a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;c
 .billPanel label span{width: 70%;display: inline-block;line-height: 45px;height: 40px;vertical-align: text-bottom;}
 .currencyCourse{text-align: right;}
 .currencyCourse span{display: inline-block; padding: 15px;}
+.promtWrapper{position: relative;}
+.showPromt{position: absolute;top: 0px;left: -210px;z-index: 10;background: #0d2b28;width: 314px;text-align: right;}
+.showPromt span{display: inline-block;}
+.showPromtBlock{left: -22px;width: 331px;}
 
-
-/*
-
-
-
- .css-form input.ng-invalid.ng-touched {
-    background-color: #FA787E;
-  }
-
-  .css-form input.ng-valid.ng-touched {
-    background-color: #78FA89;
-  }
-
-
-.idialog {position:fixed; left:50%; top:50%; z-index:100; background:#fff; min-width:400px; max-width:1000px; min-height:200px;}
-.idialog > .w {padding:16px 20px;}
-.idialog-overlay {position:fixed; top:0; right:0; bottom:0; left:0; background:#000; z-index:90; opacity:0.5;}
-.idialog-overlay .l {display:block; width:160px; height:24px; position:fixed; left:50%; top:50%; margin:-12px 0 0 -80px; z-index:91; content:'Загрузка...';}
-*/
+#popUpMsg-bg { position: absolute; left: 0; right: 0;  top: 0;  bottom: 0;  background: rgba(0,0,0,0.5);}
+#popUpMsg {  top: 10%;  left: 50%;  margin-left: -200px;  width: 400px;  padding: 25px 19px;  background: white;  border-radius: 5px;  position: absolute;  color: #03acff;}
+#popUpMsg .close {  background: black;  color: white;  width: 20px;  height: 20px;  text-align: center;  border-radius: 50%;  position: absolute;  cursor: pointer;  top: 0px;  right: 0px;  display: none;}
+#popUpMsg .content {  text-align: center;  margin-bottom: 10px;}
+#popUpMsg button {    display: block;    margin: 0 auto;    border-radius: 3px;    background: #0072ab;    padding: 5px 20px;    cursor: pointer;    color: white;}
