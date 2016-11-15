@@ -5,5 +5,8 @@ app.config(function ($routeProvider) {
     })
     .when('/userPage', {
       templateUrl: 'userPage.html'
+    })
+    .when('/ocean', {
+      templateUrl: 'ocean.html'
     });
 });
