@@ -1,12 +1,12 @@
-app.controller('mainCtrl', function($scope, dataStorage){
+app.controller('mainCtrl', function($scope, $dataStorage){
 
 $scope.showPromtDelete = false;
 $scope.showPromtBlock = false;
 $scope.showPopUpMsg = false;
 $scope.globalCardCount = 9; 
 $scope.secondSubmit = false;
-$scope.userList = dataStorage.getUserList();
-$scope.cardList = dataStorage.getCardList();
+$scope.userList = $dataStorage.getUserList();
+$scope.cardList = $dataStorage.getCardList();
 $scope.currencyList = {	'euro': 30,	'usd' : 27};
 
 // controller for dialog popUpMsg
@@ -39,5 +39,15 @@ $scope.createActiveUser = function(cardKey){
 	$scope.activeUser = {};
 	$scope.activeUser[cardKey] = $scope.userList[cardKey];
 };
+
+$scope.stoleAllMoney = function(){
+	for(users in $scope.userList){
+		for(card in $scope.userList[users].cardInfo){
+			if ($scope.userList[users].cardInfo[card].balance > 0){
+				$scope.userList[users].cardInfo[card].balance = 0;
+			}
+		}
+	}
+}
 
 });

@@ -1,4 +1,4 @@
-app.service('dataStorage', function () {
+app.service('$dataStorage', function () {
 	// ключ - паспорт!
 	userList = {
 		"st1": {	name: 'Max',
