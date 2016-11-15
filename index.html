@@ -23,6 +23,7 @@
 			<div class="row"> 
   				<div class="col-md-6">
   					<a href="#/">Home</a> <span>{{userValue.name}}</span>
+  					<a href="#/debtor">Список должников</a>
   				</div>
   				<div class="col-md-6">
 					<div class="currencyCourse">
@@ -63,7 +64,7 @@
 				<th>Статус</th>
 				<th></th>
 			</tr>
-			<tr data-ng-repeat = '(userKey, userValue) in userList | customFilter : userSeach | orderBy : "name" : reverse' >
+			<tr data-ng-repeat = '(userKey, userValue) in userList | customFilter : userSeach' >
 				<td>{{$index+1}}</td>
 				<td>{{userKey}}</td>
 				<td>{{userValue.name}}</td>
@@ -95,6 +96,53 @@
 	</div>
 	<a href="#/ocean" class = 'button' ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
 
+</script>
+
+<script type="text/ng-template" id="debtor.html">
+	<div class="userList">
+		<h2>Список карточек</h2>
+		<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
+		<table>
+			<tr>
+				<th>#</th>
+				<th>Паспорт</th>
+				<th>Владелец</th>
+				<th>Номер</th>	
+				<th>Баланс</th>
+				<th>Валюта</th>
+				<th>Статус</th>
+				<th></th>
+			</tr>
+			<tr data-ng-repeat = '(userKey, userValue) in debtorList | customFilter : userSeach' >
+				<td>{{$index+1}}</td>
+				<td>{{userKey}}</td>
+				<td>{{userValue.name}}</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+						{{cardInfoValue.number}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+						{{cardInfoValue.balance | number : 2}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+						{{cardInfoValue.currency}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+						{{cardInfoValue.status}}
+					</span>
+				</td>
+				<td>
+					<a href="#/userPage"  data-ng-click = 'createActiveUser(userKey)'>Кабинет пользователя</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </script>
 
 <!-- user page  ########################################################-->

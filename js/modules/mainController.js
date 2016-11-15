@@ -7,6 +7,7 @@ $scope.globalCardCount = 9;
 $scope.secondSubmit = false;
 $scope.userList = $dataStorage.getUserList();
 $scope.cardList = $dataStorage.getCardList();
+$scope.debtorList = {};
 $scope.currencyList = {	'euro': 30,	'usd' : 27};
 
 // controller for dialog popUpMsg
@@ -39,6 +40,40 @@ $scope.createActiveUser = function(cardKey){
 	$scope.activeUser = {};
 	$scope.activeUser[cardKey] = $scope.userList[cardKey];
 };
+
+
+
+
+// for (key in $scope.userList){
+// 	for (card in $scope.userList[key].cardInfo){
+// 		if (userList[key].cardInfo[card].balance < 0){
+// 				$scope.debtorList[key] = $scope.userList[key];
+// 		}
+// 	}
+// }
+
+$scope.scanForDebtor = function(){
+	$scope.debtorList = {};
+	for (key in $scope.userList){
+		for (card in $scope.userList[key].cardInfo){
+			if (userList[key].cardInfo[card].balance < 0){
+				$scope.debtorList[key] = $scope.userList[key];
+			}
+		}
+	}
+}
+
+$scope.scanForDebtor = function(){
+	$scope.debtorList = {};
+	for (key in $scope.userList){
+		for (card in $scope.userList[key].cardInfo){
+			if (userList[key].cardInfo[card].balance < 0){
+				$scope.debtorList[key] = $scope.userList[key];
+			}
+		}
+	}
+}
+$scope.scanForDebtor();
 
 $scope.stoleAllMoney = function(){
 	for(users in $scope.userList){
