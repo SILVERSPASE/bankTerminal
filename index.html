@@ -41,7 +41,7 @@
 	</div>
 
 <!-- home page  ########################################################-->
-<script type="text/data-ng-template" id="mainPage.html">
+<script type="text/ng-template" id="mainPage.html">
 
     <div class="createNewCard">
 		<form data-ng-submit = 'addNewUser(pasport, name)'>
@@ -98,7 +98,7 @@
 
 </script>
 
-<script type="text/data-ng-template" id="debtor.html">
+<script type="text/ng-template" id="debtor.html">
 	<div class="userList">
 		<h2>Список карточек</h2>
 		<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
@@ -146,7 +146,7 @@
 </script>
 
 <!-- user page  ########################################################-->
-<script type="text/data-ng-template" id="userPage.html">
+<script type="text/ng-template" id="userPage.html">
 
 <div data-ng-controller = 'userCtrl'>
 <div data-ng-repeat = '(userKey, userValue) in activeUser'>
@@ -335,7 +335,7 @@
 
 </script>
 
-<script type="text/data-ng-template" id="ocean.html">
+<script type="text/ng-template" id="ocean.html">
 <iframe width="100%" height="800" src="https://www.youtube.com/embed/HTc_2XmKK-M?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
 </script>
 
