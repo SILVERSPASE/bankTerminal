@@ -1,7 +1,7 @@
 app.service('$dataStorage', function () {
 	// ключ - паспорт!
 	userList = {
-		"st1": {	name: 'Max',
+		"lt01": {	name: 'Max',
 					history: {
 				1: {	date: "14.11.16 14:06",
 						sum: "-3004",
@@ -37,7 +37,7 @@ app.service('$dataStorage', function () {
 					},
 			}
 		},
-		"rk2": {	name: 'German',
+		"rk20": {	name: 'German',
 					history: {},
 					cardInfo: {
 				1: {	number: 1002,
@@ -54,7 +54,7 @@ app.service('$dataStorage', function () {
 					},
 			}
 		},
-		"rt3": 	{	name: 'Markus',
+		"bt03": 	{	name: 'Markus',
 					history: {},
 					cardInfo: {
 				1: {	number: 1004,
@@ -71,7 +71,7 @@ app.service('$dataStorage', function () {
 					},
 			}
 		},
-		"sd4": 	{	name: 'Vova',
+		"sd44": 	{	name: 'Donny',
 					history: {},
 					cardInfo: {
 				1: {	number: 1006,
@@ -87,6 +87,70 @@ app.service('$dataStorage', function () {
 						pinCode: '1111'
 					},
 			}
+		},
+		"cd45": 	{	name: 'Bobby',
+					history: {},
+					cardInfo: {}
+		},
+		"sd46": 	{	name: 'Selicia',
+					history: {},
+					cardInfo: {}
+		},
+		"dd47": 	{	name: 'Alex',
+					history: {},
+					cardInfo: {}
+		},
+		"sd48": 	{	name: 'Vova4',
+					history: {},
+					cardInfo: {}
+		},
+		"ed49": 	{	name: 'Vova5',
+					history: {},
+					cardInfo: {}
+		},
+		"sd50": 	{	name: 'Vova6',
+					history: {},
+					cardInfo: {}
+		},
+		"fd51": 	{	name: 'Vova7',
+					history: {},
+					cardInfo: {}
+		},
+		"sd52": 	{	name: 'Vova8',
+					history: {},
+					cardInfo: {}
+		},
+		"gd53": 	{	name: 'Vova9',
+					history: {},
+					cardInfo: {}
+		},
+		"xd54": 	{	name: 'Vova10',
+					history: {},
+					cardInfo: {}
+		},
+		"zd55": 	{	name: 'Vova11',
+					history: {},
+					cardInfo: {}
+		},
+		"sd56": 	{	name: 'Vova012',
+					history: {},
+					cardInfo: {}
+		},
+		"yd57": 	{	name: 'Vova13',
+					history: {},
+					cardInfo: {}
+		},
+		"jd58": 	{	name: 'Vova14',
+					history: {},
+					cardInfo: {}
+		},
+		"qd59": 	{	name: 'Vova15',
+					history: {},
+					cardInfo: {}
+		},
+		"ud60": 	{	name: 'Vova16',
+					history: {},
+					cardInfo: {}
 		}
 	};
 	this.getUserList = function() {

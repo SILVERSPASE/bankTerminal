@@ -6,9 +6,17 @@ $scope.showPopUpMsg = false;
 $scope.globalCardCount = 9; 
 $scope.secondSubmit = false;
 $scope.userList = $dataStorage.getUserList();
+console.log($scope.userList.lt01.name);
+$scope.userListArr = []
+$scope.defaultOrder = 'key';
+$scope.reverse = false;
+
 $scope.cardList = $dataStorage.getCardList();
 $scope.debtorList = {};
 $scope.currencyList = {	'euro': 30,	'usd' : 27};
+// pagination
+$scope.currentPage = 0;
+$scope.pageSize = 6;
 
 // controller for dialog popUpMsg
 $scope.openPopUp = function( text ) {
@@ -30,6 +38,7 @@ $scope.addNewUser = function(pasport, name) {
 			history: {},
 			cardInfo : {}
 		};
+		$scope.userListToArr();
 		this.name = '';
 		this.pasport = '';
 	}
@@ -52,6 +61,17 @@ $scope.scanForDebtor = function() {
 	}
 }
 $scope.scanForDebtor();
+
+//for pagination
+$scope.userListToArr = function(){
+	$scope.userListKeys = Object.keys($scope.userList);
+}
+$scope.userListToArr();
+
+// pagination
+$scope.numberOfPages = Math.ceil($scope.userListKeys.length/$scope.pageSize);
+$scope.getLastpage = Math.ceil($scope.userListKeys.length/$scope.pageSize - 1);
+
 
 $scope.stoleAllMoney = function() {
 	for (users in $scope.userList) {

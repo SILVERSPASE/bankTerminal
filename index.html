@@ -53,49 +53,64 @@
 	<div class="userList">
 		<h2>Список карточек</h2>
 		<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
+		<div class="pagination">
+			<button ng-disabled="currentPage == 0" ng-click = 'currentPage = 0'>
+	    		First
+	    	</button>
+			<button ng-disabled="currentPage == 0" ng-click="currentPage = currentPage-1">
+	        	Previous
+	    	</button>
+	    		{{currentPage+1}}/{{numberOfPages}}
+	    	<button ng-disabled="currentPage >= userListKeys.length/pageSize - 1" ng-click="currentPage = currentPage+1">
+	       		Next
+	    	</button>
+	    	<button ng-disabled="currentPage >= userListKeys.length/pageSize - 1" ng-click = 'currentPage = getLastpage'>
+	    		Last
+	    	</button>
+		</div>
 		<table>
 			<tr>
-				<th>#</th>
-				<th>Паспорт</th>
-				<th data-ng-click = 'setOrder = "name"; reverse = !reverse'>Владелец</th>
+				<th ng-click = 'reverse = !reverse'>#</th>
+				<th ng-click = 'reverse = !reverse'>Паспорт</th>
+				<th>Владелец</th>
 				<th>Номер</th>	
 				<th>Баланс</th>
 				<th>Валюта</th>
 				<th>Статус</th>
 				<th></th>
-			</tr>
-			<tr data-ng-repeat = '(userKey, userValue) in userList | customFilter : userSeach' >
-				<td>{{$index+1}}</td>
-				<td>{{userKey}}</td>
-				<td>{{userValue.name}}</td>
+			</tr>	
+			<!-- userList[key] -->
+			<tr data-ng-repeat = 'key in userListKeys | customFilter : userSeach  | startFrom:(currentPage*pageSize) | limitTo: pageSize  ' >
+				<td>{{userListKeys.indexOf(key)+1}}</td>
+				<td>{{key}}</td>
+				<td>{{userList[key].name}}</td>
 				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[key].cardInfo'>
 						{{cardInfoValue.number}}
 					</span>
 				</td>
 				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[key].cardInfo'>
 						{{cardInfoValue.balance | number : 2}}
 					</span>
 				</td>
 				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[key].cardInfo'>
 						{{cardInfoValue.currency}}
 					</span>
 				</td>
 				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[key].cardInfo'>
 						{{cardInfoValue.status}}
 					</span>
 				</td>
 				<td>
-					<a href="#/userPage"  data-ng-click = 'createActiveUser(userKey)'>Кабинет пользователя</a>
+					<a href="#/userPage"  data-ng-click = 'createActiveUser(key)'>Кабинет пользователя</a>
 				</td>
 			</tr>
 		</table>
 	</div>
 	<a href="#/ocean" class = 'button' data-ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
-
 </script>
 
 <script type="text/ng-template" id="debtor.html">
