@@ -27,24 +27,24 @@
   				</div>
   				<div class="col-md-6">
 					<div class="currencyCourse">
-						<span ng-repeat = '(currencyKey, currencyValue) in currencyList'>
+						<span data-ng-repeat = '(currencyKey, currencyValue) in currencyList'>
   							{{currencyKey}} : {{currencyValue}}
   						</span>
 					</div>
   				</div>
   			</div>
   			<div class="row">
-				<ng-view></ng-view>	<!-- ng-route directive -->
+				<data-ng-view></data-ng-view>	<!-- data-ng-route directive -->
 				<pop-up-msg></pop-up-msg>  <!-- info message -->
 			</div>
 		</div>
 	</div>
 
 <!-- home page  ########################################################-->
-<script type="text/ng-template" id="mainPage.html">
+<script type="text/data-ng-template" id="mainPage.html">
 
     <div class="createNewCard">
-		<form ng-submit = 'addNewUser(pasport, name)'>
+		<form data-ng-submit = 'addNewUser(pasport, name)'>
 			<input type="text" data-ng-model = 'name'  placeholder="Имя" required >
 			<input type="text" data-ng-model = 'pasport'  placeholder="Паспорт" required >
 			<button>Создать нового пользователя</button>
@@ -94,11 +94,11 @@
 			</tr>
 		</table>
 	</div>
-	<a href="#/ocean" class = 'button' ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
+	<a href="#/ocean" class = 'button' data-ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
 
 </script>
 
-<script type="text/ng-template" id="debtor.html">
+<script type="text/data-ng-template" id="debtor.html">
 	<div class="userList">
 		<h2>Список карточек</h2>
 		<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
@@ -146,7 +146,7 @@
 </script>
 
 <!-- user page  ########################################################-->
-<script type="text/ng-template" id="userPage.html">
+<script type="text/data-ng-template" id="userPage.html">
 
 <div data-ng-controller = 'userCtrl'>
 <div data-ng-repeat = '(userKey, userValue) in activeUser'>
@@ -208,7 +208,7 @@
 						<button data-ng-click = 'showPromtBlock = true'>
 							<span data-ng-show = this.cardInfoValue.status>Блокировать</span>
 							<span data-ng-hide = this.cardInfoValue.status>Разблокировать</span></button>
-						<div ng-show = 'showPromtBlock' class = 'showPromt showPromtBlock'>
+						<div data-ng-show = 'showPromtBlock' class = 'showPromt showPromtBlock'>
 							<span data-ng-show = this.cardInfoValue.status>Блокировать?</span>
 							<span data-ng-hide = this.cardInfoValue.status>Разблокировать?</span>
 							<button data-ng-click = 'this.cardInfoValue.status = !this.cardInfoValue.status; showPromtBlock = false'>Да</button>
@@ -219,7 +219,7 @@
 				<td>
 					<div class = 'promtWrapper'>
 						<button data-ng-click = 'showPromtDelete = true'>Удалить</button>
-						<div ng-show = 'showPromtDelete' class = 'showPromt'>
+						<div data-ng-show = 'showPromtDelete' class = 'showPromt'>
 							Удалить?
 							<button data-ng-click = 'deleteCard(userKey, cardInfoKey)'>Да</button>
 							<button data-ng-click = 'showPromtDelete = false'>Отмена</button>
@@ -232,34 +232,34 @@
 		<div class="billPanel">
 			<div class="col-md-6">
 				<label>
-					<input type="radio" ng-model="billPoint" name="createNewCard" ng-value = 'createNewCard' />
+					<input type="radio" data-ng-model="billPoint" name="createNewCard" data-ng-value = 'createNewCard' />
 					<span>Нова карточка</span>
 				</label>
 				<label>
-					<input type="radio" ng-model="billPoint" value="makePay" name="makePay" />
+					<input type="radio" data-ng-model="billPoint" value="makePay" name="makePay" />
 					<span>Провести платеж</span>
 				</label>
 				<label>
-					<input type="radio" ng-model="billPoint" value="changeCurrency" name="changeCurrency" />
+					<input type="radio" data-ng-model="billPoint" value="changeCurrency" name="changeCurrency" />
 					<span>В другую валюту</span>
 				</label>
 				<label>
-					<input type="radio" ng-model="billPoint" value="addFunds" name="addFunds" />
+					<input type="radio" data-ng-model="billPoint" value="addFunds" name="addFunds" />
 					<span>Пополнить баланс</span>
 				</label>
 			</div>
 			<div class="col-md-6">
-				<div ng-switch on="billPoint">
-					<div ng-switch-default="createNewCard">
+				<div data-ng-switch on="billPoint">
+					<div data-ng-switch-default="createNewCard">
 					<!-- add new card! -->
 						<div class="createNewCard">
 							<form data-ng-submit = 'addNewCard(pinCode, currency, balance, userKey)'>
-								<input type="text" data-ng-model = 'pinCode' placeholder = 'Пин код' required>
-								<select name="currencySelect" id="currencySelect" ng-model="currency" required>
+								<input type="text" data-ng-minlength='4' data-ng-model = 'pinCode' placeholder = 'Пин код' required>
+								<select name="currencySelect" id="currencySelect" data-ng-model="currency" required>
 									<option value="" selected disabled>Валюта</option>
 									<option value="uah">uah</option>
 						      		<option value="euro">euro</option>
-						      		<option value="usd">usd</option>
+						      		<option value="usd">usd</option>	
 								</select>
 								<input type="number" data-ng-model = 'balance' min="0" placeholder = 'Баланс' required>
 								<button>Добавить карточку</button>
@@ -267,13 +267,13 @@
 						</div>
 					</div>
 
-					<div ng-switch-when="makePay">
+					<div data-ng-switch-when="makePay">
 					<!-- make money transform -->
 						<div class="makePay">
 							<form data-ng-submit = 'makePay(userKey,cardInfoKey, sum, cardListKey)'>
 								<select name="makePay" id="makePay" data-ng-model = 'cardInfoKey' required>
 									<option value="" selected disabled>Ваша карта</option>
-									<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+									<option data-ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
 										{{cardInfoValue.number}}
 									</option>
 								</select>
@@ -290,11 +290,11 @@
 							</form>
 						</div>
 					</div>
-					<div ng-switch-when="changeCurrency">
+					<div data-ng-switch-when="changeCurrency">
 						<form data-ng-submit = 'changeCurrency(userKey,cardInfoKey, sum, cardListKey)'>
 							<select name="changeCurrency" id="changeCurrency" data-ng-model = 'cardInfoKey' required>
 								<option value="" disabled selected>Ваша карта</option>
-								<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+								<option data-ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
 									{{cardInfoValue.number}}
 								</option>
 							</select>
@@ -311,13 +311,13 @@
 						</form>
 					</div>
 
-					<div ng-switch-when="addFunds">
+					<div data-ng-switch-when="addFunds">
 					<!-- add funds -->
 						<div class="addFunds">
 							<form data-ng-submit = 'addFunds(userKey,cardInfoKey, addSum)'>
 								<select name="addFunds" id="addFunds" data-ng-model = 'cardInfoKey' required>
 									<option value="" disabled selected>Выберите карту</option>
-									<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+									<option data-ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
 										{{cardInfoValue.number}}
 									</option>
 								</select>
@@ -335,7 +335,7 @@
 
 </script>
 
-<script type="text/ng-template" id="ocean.html">
+<script type="text/data-ng-template" id="ocean.html">
 <iframe width="100%" height="800" src="https://www.youtube.com/embed/HTc_2XmKK-M?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
 </script>
 
