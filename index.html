@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang='ru'>
+<meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -14,14 +15,53 @@
 <script src="js/modules/filters.js"></script>
 <script src="js/modules/directives.js"></script>
 <script src="js/modules/dataStorage.js"></script>
-
-
+<script src="js/modules/dirPagination.js"></script>
+<script src="js/modules/paginationController.js"></script>
 
 <body data-ng-app = 'app'>
 	<div data-ng-controller = 'mainCtrl'>
 		<div class="container">
-			<div class="row"> 
-  				<div class="col-md-6">
+			<div class="row">
+
+		<div ng-controller="MyController" class="my-controller">
+          <h1>Tasty Paginated Menu</h1>
+
+          <small>this is in "MyController"</small>
+
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Meals Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              <ul>
+                <li dir-paginate="meal in meals | filter:q | itemsPerPage: pageSize" current-page="currentPage">{{ meal }}</li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+		 <div ng-controller="OtherController" class="other-controller">
+          <small>this is in "OtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>  
+
+ <!--  				<div class="col-md-6">
   					<a href="#/">Home</a> <span>{{userValue.name}}</span>
   					<a href="#/debtor">Список должников</a>
   				</div>
@@ -34,9 +74,9 @@
   				</div>
   			</div>
   			<div class="row">
-				<ng-view></ng-view>	<!-- ng-route directive -->
-				<pop-up-msg></pop-up-msg>  <!-- info message -->
-			</div>
+				<ng-view></ng-view>	ng-route directive 
+				<pop-up-msg></pop-up-msg>  info message
+			</div> -->
 		</div>
 	</div>
 
