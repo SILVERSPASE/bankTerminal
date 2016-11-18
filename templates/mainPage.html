@@ -12,8 +12,7 @@
 	</form>
 </div>
 <div class="clearfix"></div>
-
-<h2>Список карточек</h2>
+			<h2>Список карточек</h2>
 <div class="userList row">
 		<div class="col-md-3">
 			<label for="search">Поиск:</label>
@@ -74,10 +73,11 @@
 		</tr>
 	</table>
 	<div class = 'tac'>
-		<dir-pagination-controls 	boundary-links="true" 
-									on-page-change="pageChangeHandler(newPageNumber)" 
-									template-url="dirPagination.tpl.html">
-		</dir-pagination-controls>
+						<dir-pagination-controls 	boundary-links="true" 
+										on-page-change="pageChangeHandler(newPageNumber)" 
+										template-url="dirPagination.tpl.html">
+			</dir-pagination-controls>
 	</div>
 </div>
 <a href="#/ocean" class = 'button' ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
+

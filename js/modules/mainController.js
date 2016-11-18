@@ -46,8 +46,7 @@ $scope.createActiveUser = function(cardKey) {
 	$scope.activeUser[cardKey] = $scope.userList[cardKey];
 };
 
-
-$scope.scanForDebtor = function() {
+$scope.scanForDebtor = function(){
 	$scope.debtorList = {};
 	for (key in $scope.userList) {
 		for (card in $scope.userList[key].cardInfo) {
@@ -56,7 +55,7 @@ $scope.scanForDebtor = function() {
 			}
 		}
 	}
-}
+};
 $scope.scanForDebtor();
 
 $scope.stoleAllMoney = function() {
