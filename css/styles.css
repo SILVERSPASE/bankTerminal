@@ -4,6 +4,7 @@ th, td {padding: 5px 10px;}
 td span{display: block;}
 input, select {color:#2169b9; padding: 0 5px; margin: 5px 0; line-height: 30px; height: 30px;}
 table {width: 100%;}
+.newUserForm div:nth-child(1), .newUserForm div:nth-child(2){line-height: 60px;}
 
 button, .button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
 a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc; cursor: pointer;}

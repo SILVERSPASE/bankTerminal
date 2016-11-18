@@ -10,6 +10,9 @@ $scope.cardList = $dataStorage.getCardList();
 $scope.debtorList = {};
 $scope.currencyList = {	'euro': 30,	'usd' : 27};
 
+$scope.currentPage = 1;
+$scope.pageSize = 10;
+
 // controller for dialog popUpMsg
 $scope.openPopUp = function( text ) {
 	$scope.showPopUpMsg = true;
@@ -33,6 +36,7 @@ $scope.addNewUser = function(pasport, name){
 		this.name = '';
 		this.pasport = '';
 	}
+	$scope.getUserListArr();
 }
 
 // choosing user for open User cabinet
@@ -84,5 +88,10 @@ $scope.stoleAllMoney = function(){
 		}
 	}
 }
+
+$scope.getUserListArr = function(){
+	$scope.userListArr = Object.keys($scope.userList);
+}
+$scope.getUserListArr();
 
 });
