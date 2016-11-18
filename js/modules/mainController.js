@@ -11,7 +11,7 @@ $scope.debtorList = {};
 $scope.currencyList = {	'euro': 30,	'usd' : 27};
 
 $scope.currentPage = 1;
-$scope.pageSize = 10;
+$scope.pageSize = 5;
 
 // controller for dialog popUpMsg
 $scope.openPopUp = function( text ) {
@@ -36,6 +36,7 @@ $scope.addNewUser = function(pasport, name){
 		this.name = '';
 		this.pasport = '';
 	}
+		console.log(2);
 	$scope.getUserListArr();
 }
 
@@ -45,16 +46,6 @@ $scope.createActiveUser = function(cardKey){
 	$scope.activeUser[cardKey] = $scope.userList[cardKey];
 };
 
-
-
-
-// for (key in $scope.userList){
-// 	for (card in $scope.userList[key].cardInfo){
-// 		if (userList[key].cardInfo[card].balance < 0){
-// 				$scope.debtorList[key] = $scope.userList[key];
-// 		}
-// 	}
-// }
 
 $scope.scanForDebtor = function(){
 	$scope.debtorList = {};

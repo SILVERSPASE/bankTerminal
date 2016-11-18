@@ -1,0 +1,185 @@
+
+<div data-ng-controller = 'userCtrl'>
+	<div data-ng-repeat = '(userKey, userValue) in activeUser'>
+		<div class="col-md-5">
+			<h2>Личный кабинет</h2>
+			<table>
+				<tr>
+					<td>Имя: </td>
+					<td>{{userValue.name}}</td>
+				</tr>
+				<tr>
+					<td>Паспорт:</td> 
+					<td>{{userKey}}</td>
+				</tr>
+			</table>
+
+			<h2>История платежей</h2>
+
+			<div data-ng-hide = hasHistory(userKey) >История платежей пуста</div>
+			<div data-ng-show = hasHistory(userKey) >
+
+				<table> 
+					<tr>
+						<th>Дата</th>
+						<th>Сумма</th>
+						<th>От</th>
+						<th>До</th>
+					</tr>
+					<tr data-ng-repeat = '(historyKey, historyValue) in userValue.history'>
+						<td>{{historyValue.date | date:'dd.MM.yy HH:mm'}}</td>
+						<td>{{historyValue.sum | number : 2 }} {{historyValue.currency}}</td>
+						<td>{{historyValue.from}}</td>
+						<td>{{historyValue.to}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<h2>Список карточек</h2>
+			<div data-ng-hide = hasCards(userKey)>Карточек еще нет</div>
+			<table data-ng-show = hasCards(userKey)>
+				<tr>
+					<th>Номер</th>
+					<th>Баланс</th>
+					<th>Валюта</th>
+					<th>Пин код</th>
+					<th>Статус</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					<td>{{cardInfoValue.number}}</td>
+					<td>{{cardInfoValue.balance | number : 2}}</td>
+					<td>{{cardInfoValue.currency}}</td>
+					<td>{{cardInfoValue.pinCode}}</td>
+					<td>{{cardInfoValue.status}}</td>
+					<td>
+						<div class = 'promtWrapper'>
+							<button data-ng-click = 'showPromtBlock = true'>
+								<span data-ng-show = this.cardInfoValue.status>Блокировать</span>
+								<span data-ng-hide = this.cardInfoValue.status>Разблокировать</span></button>
+							<div ng-show = 'showPromtBlock' class = 'showPromt showPromtBlock'>
+								<span data-ng-show = this.cardInfoValue.status>Блокировать?</span>
+								<span data-ng-hide = this.cardInfoValue.status>Разблокировать?</span>
+								<button data-ng-click = 'this.cardInfoValue.status = !this.cardInfoValue.status; showPromtBlock = false'>Да</button>
+								<button data-ng-click = 'showPromtBlock = false'>Отмена</button>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class = 'promtWrapper'>
+							<button data-ng-click = 'showPromtDelete = true'>Удалить</button>
+							<div ng-show = 'showPromtDelete' class = 'showPromt'>
+								Удалить?
+								<button data-ng-click = 'deleteCard(userKey, cardInfoKey)'>Да</button>
+								<button data-ng-click = 'showPromtDelete = false'>Отмена</button>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<div class="billPanel">
+				<div class="col-md-6">
+					<label>
+						<input type="radio" ng-model="billPoint" name="createNewCard" ng-value = 'createNewCard' />
+						<span>Нова карточка</span>
+					</label>
+					<label>
+						<input type="radio" ng-model="billPoint" value="makePay" name="makePay" />
+						<span>Провести платеж</span>
+					</label>
+					<label>
+						<input type="radio" ng-model="billPoint" value="changeCurrency" name="changeCurrency" />
+						<span>В другую валюту</span>
+					</label>
+					<label>
+						<input type="radio" ng-model="billPoint" value="addFunds" name="addFunds" />
+						<span>Пополнить баланс</span>
+					</label>
+				</div>
+				<div class="col-md-6">
+					<div ng-switch on="billPoint">
+						<div ng-switch-default="createNewCard">
+						<!-- add new card! -->
+							<div class="createNewCard">
+								<form data-ng-submit = 'addNewCard(pinCode, currency, balance, userKey)'>
+									<input type="text" data-ng-model = 'pinCode' placeholder = 'Пин код' required>
+									<select name="currencySelect" id="currencySelect" ng-model="currency" required>
+										<option value="" selected disabled>Валюта</option>
+										<option value="uah">uah</option>
+							      		<option value="euro">euro</option>
+							      		<option value="usd">usd</option>
+									</select>
+									<input type="number" data-ng-model = 'balance' min="0" placeholder = 'Баланс' required>
+									<button>Добавить карточку</button>
+								</form>
+							</div>
+						</div>
+
+						<div ng-switch-when="makePay">
+						<!-- make money transform -->
+							<div class="makePay">
+								<form data-ng-submit = 'makePay(userKey,cardInfoKey, sum, cardListKey)'>
+									<select name="makePay" id="makePay" data-ng-model = 'cardInfoKey' required>
+										<option value="" selected disabled>Ваша карта</option>
+										<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+											{{cardInfoValue.number}}
+										</option>
+									</select>
+									<input type="number" data-ng-model = 'sum' min="0" placeholder = 'сумма' required>
+									<select name="makePay" id="makePay" data-ng-model = 'cardListKey' required>
+										<option value="" disabled selected>Карта получателя</option>
+										<option data-ng-repeat = '(cardListKey, cardListValue) in cardList' value="{{cardListKey}}">
+											{{cardListValue.number}} : 
+											{{cardListValue.currency}} : 
+											{{userList[cardListValue.userKey].name}}
+										</option>
+									</select>
+									<button>Перевести средства</button>
+								</form>
+							</div>
+						</div>
+						<div ng-switch-when="changeCurrency">
+							<form data-ng-submit = 'changeCurrency(userKey,cardInfoKey, sum, cardListKey)'>
+								<select name="changeCurrency" id="changeCurrency" data-ng-model = 'cardInfoKey' required>
+									<option value="" disabled selected>Ваша карта</option>
+									<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+										{{cardInfoValue.number}}
+									</option>
+								</select>
+								<input type="number" data-ng-model = 'sum' min="0" placeholder = 'сумма' required>
+								<select name="changeCurrency" id="changeCurrency" data-ng-model = 'cardListKey' required>
+									<option value="" disabled selected>Карта получателя</option>
+									<option data-ng-repeat = '(cardListKey, cardListValue) in cardList' value="{{cardListKey}}">
+										{{cardListValue.number}} :
+										{{cardListValue.currency}} : 
+										{{userList[cardListValue.userKey].name}}
+									</option>
+								</select>
+								<button>Перевести средства</button>
+							</form>
+						</div>
+
+						<div ng-switch-when="addFunds">
+						<!-- add funds -->
+							<div class="addFunds">
+								<form data-ng-submit = 'addFunds(userKey,cardInfoKey, addSum)'>
+									<select name="addFunds" id="addFunds" data-ng-model = 'cardInfoKey' required>
+										<option value="" disabled selected>Выберите карту</option>
+										<option ng-repeat='(cardInfoKey, cardInfoValue) in userValue.cardInfo' value="{{cardInfoKey}}">
+											{{cardInfoValue.number}}
+										</option>
+									</select>
+									<input type="number" data-ng-model = 'addSum' min="0" placeholder = 'сумма' required>
+									<button>Пополнить</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

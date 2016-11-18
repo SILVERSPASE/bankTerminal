@@ -1,0 +1,82 @@
+<div class="createNewCard row">
+		<form ng-submit = 'addNewUser(pasport, name)' class = 'newUserForm'>
+			<div class="col-md-4">
+				<input type="text" class = 'form-control' data-ng-model = 'name'  placeholder="Имя" required >
+			</div>
+			<div class="col-md-4">
+				<input type="text" class = 'form-control' data-ng-model = 'pasport'  placeholder="Паспорт" required >
+			</div>
+			<div class="col-md-4 tar">
+				<button>Создать нового пользователя</button>
+			</div>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+				<h2>Список карточек</h2>
+	<div class="userList row">
+			<div class="col-md-3">
+				<label for="search">Поиск:</label>
+           		<input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+			</div>
+			<div class="col-md-6 tac">
+				<dir-pagination-controls 	boundary-links="true" 
+											on-page-change="pageChangeHandler(newPageNumber)" 
+											template-url="dirPagination.tpl.html">
+				</dir-pagination-controls>
+			</div>
+			<div class="col-md-3">
+            	<label for="search">Позиций на странице:</label>
+            	<input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+			</div>
+         
+		<table>
+			<tr>
+				<th>#</th>
+				<th>Паспорт</th>
+				<th data-ng-click = 'setOrder = "name"; reverse = !reverse'>Владелец</th>
+				<th>Номер</th>	
+				<th>Баланс</th>
+				<th>Валюта</th>
+				<th>Статус</th>
+				<th></th>
+			</tr>
+			<!-- <div dir-paginate="meal in meals | filter:q | itemsPerPage: pageSize" current-page="currentPage"></div> -->
+			<tr dir-paginate = 'userKey in userListArr | filter:q | itemsPerPage: pageSize' current-page="currentPage"  >
+			<!-- <tr data-ng-repeat = 'userKey in userListArr' > -->
+
+				<td>{{userListArr.indexOf(userKey) + 1}}</td>
+				<td>{{userKey}}</td>
+				<td>{{userList[userKey].name}}</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[userKey].cardInfo'>
+						{{cardInfoValue.number}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[userKey].cardInfo'>
+						{{cardInfoValue.balance | number : 2}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[userKey].cardInfo'>
+						{{cardInfoValue.currency}}
+					</span>
+				</td>
+				<td>
+					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userList[userKey].cardInfo'>
+						{{cardInfoValue.status}}
+					</span>
+				</td>
+				<td class = 'tar'>
+					<a href="#/userPage"  data-ng-click = 'createActiveUser(userKey)'>Кабинет пользователя</a>
+				</td>
+			</tr>
+		</table>
+		<div class = 'tac'>
+							<dir-pagination-controls 	boundary-links="true" 
+											on-page-change="pageChangeHandler(newPageNumber)" 
+											template-url="dirPagination.tpl.html">
+				</dir-pagination-controls>
+		</div>
+	</div>
+	<a href="#/ocean" class = 'button' ng-click = 'stoleAllMoney()' style = 'margin: 35px auto; display: block; width: 500px; text-align: center;'>Обналичить все и улететь на Мальдивы</a>
