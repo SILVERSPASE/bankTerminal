@@ -15,11 +15,10 @@
 <script src="js/modules/filters.js"></script>
 <script src="js/modules/directives.js"></script>
 <script src="js/modules/dataStorage.js"></script>
-<!-- lalala -->
+<script src="js/modules/dirPagination.js"></script>
 
 <body data-ng-app = 'app'>
 
-	
 	<div data-ng-controller = 'mainCtrl'>
 		<div class="container">
 			<div class="row">
@@ -29,15 +28,15 @@
   				</div>
   				<div class="col-md-6">
 					<div class="currencyCourse">
-						<span data-ng-repeat = '(currencyKey, currencyValue) in currencyList'>
+						<span ng-repeat = '(currencyKey, currencyValue) in currencyList'>
   							{{currencyKey}} : {{currencyValue}}
   						</span>
 					</div>
   				</div>
   			</div>
   			<div class="row">
-				<data-ng-view></data-ng-view>	<!-- data-ng-route directive -->
-				<pop-up-msg></pop-up-msg>  <!-- info message -->
+				<ng-view></ng-view>	<!-- ng-route directive  -->
+				<pop-up-msg></pop-up-msg> <!--  info message -->
 			</div>
 		</div>
 	</div>

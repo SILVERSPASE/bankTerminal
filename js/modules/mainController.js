@@ -1,4 +1,4 @@
-app.controller('mainCtrl', function($scope, $dataStorage) {
+app.controller('mainCtrl', function($scope, $dataStorage){
 
 $scope.showPromtDelete = false;
 $scope.showPromtBlock = false;
@@ -20,10 +20,10 @@ $scope.openPopUp = function( text ) {
 }
 // end controller for dialog popUpMsg
 
-$scope.addNewUser = function(pasport, name) {
-	if (pasport && name) {
-		for(key in $scope.userList) {
-			if(key == pasport) {
+$scope.addNewUser = function(pasport, name){
+	if (pasport && name){
+		for(key in $scope.userList){
+			if(key == pasport){
 				$scope.openPopUp('Пользователь уже есть в базе!');
 				return;
 			} 
@@ -41,27 +41,39 @@ $scope.addNewUser = function(pasport, name) {
 }
 
 // choosing user for open User cabinet
-$scope.createActiveUser = function(cardKey) {
+$scope.createActiveUser = function(cardKey){
 	$scope.activeUser = {};
 	$scope.activeUser[cardKey] = $scope.userList[cardKey];
 };
 
+
 $scope.scanForDebtor = function(){
 	$scope.debtorList = {};
-	for (key in $scope.userList) {
-		for (card in $scope.userList[key].cardInfo) {
-			if (userList[key].cardInfo[card].balance < 0) {
+	for (key in $scope.userList){
+		for (card in $scope.userList[key].cardInfo){
+			if (userList[key].cardInfo[card].balance < 0){
 				$scope.debtorList[key] = $scope.userList[key];
 			}
 		}
 	}
-};
+}
+
+$scope.scanForDebtor = function(){
+	$scope.debtorList = {};
+	for (key in $scope.userList){
+		for (card in $scope.userList[key].cardInfo){
+			if (userList[key].cardInfo[card].balance < 0){
+				$scope.debtorList[key] = $scope.userList[key];
+			}
+		}
+	}
+}
 $scope.scanForDebtor();
 
-$scope.stoleAllMoney = function() {
-	for (users in $scope.userList) {
-		for (card in $scope.userList[users].cardInfo) {
-			if ($scope.userList[users].cardInfo[card].balance > 0) {
+$scope.stoleAllMoney = function(){
+	for(users in $scope.userList){
+		for(card in $scope.userList[users].cardInfo){
+			if ($scope.userList[users].cardInfo[card].balance > 0){
 				$scope.userList[users].cardInfo[card].balance = 0;
 			}
 		}

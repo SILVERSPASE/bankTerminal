@@ -153,13 +153,13 @@ app.service('$dataStorage', function () {
 					cardInfo: {}
 		}
 	};
-	this.getUserList = function() {
+	this.getUserList = function(){
 		return userList;
 	};
 
 	cardList =  [];
-	for (key in userList) {
-		for (card in userList[key].cardInfo) {
+	for (key in userList){
+		for (card in userList[key].cardInfo){
 			cardList.push({
 				userKey: key,
 				cardKey: card,
@@ -168,7 +168,7 @@ app.service('$dataStorage', function () {
 			});
 		}
 	};
-	this.getCardList = function() {
+	this.getCardList = function(){
 		return cardList;
 	};
 });
