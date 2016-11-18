@@ -11,6 +11,7 @@ h1, h2{text-align: center;     margin: 25px 0 15px 0;}
 
 button, .button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
 a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc; cursor: pointer;}
+
 .billPanel {padding: 30px 10px 10px 10px;display: inline-block;width: 100%;}
 .billPanel select, .billPanel input, .billPanel button {width: 100%;}
 .billPanel label {display:block;line-height: 45px;}

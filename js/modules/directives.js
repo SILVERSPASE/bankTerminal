@@ -1,4 +1,4 @@
-app.directive('popUpMsg', function(){
+app.directive('popUpMsg', function() {
   return {
     restrict: 'E',
     scope: false,

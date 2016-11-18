@@ -1,44 +1,44 @@
 <div class="userList">
-		<h2>Список карточек</h2>
-		<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
-		<table>
-			<tr>
-				<th>#</th>
-				<th>Паспорт</th>
-				<th>Владелец</th>
-				<th>Номер</th>	
-				<th>Баланс</th>
-				<th>Валюта</th>
-				<th>Статус</th>
-				<th></th>
-			</tr>
-			<tr data-ng-repeat = '(userKey, userValue) in debtorList | customFilter : userSeach' >
-				<td>{{$index+1}}</td>
-				<td>{{userKey}}</td>
-				<td>{{userValue.name}}</td>
-				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
-						{{cardInfoValue.number}}
-					</span>
-				</td>
-				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
-						{{cardInfoValue.balance | number : 2}}
-					</span>
-				</td>
-				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
-						{{cardInfoValue.currency}}
-					</span>
-				</td>
-				<td>
-					<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
-						{{cardInfoValue.status}}
-					</span>
-				</td>
-				<td>
-					<a href="#/userPage"  data-ng-click = 'createActiveUser(userKey)'>Кабинет пользователя</a>
-				</td>
-			</tr>
-		</table>
-	</div>
+	<h2>Список карточек</h2>
+	<input type="text" data-ng-model = 'userSeach' placeholder="Имя или паспорт">
+	<table>
+		<tr>
+			<th>#</th>
+			<th>Паспорт</th>
+			<th>Владелец</th>
+			<th>Номер</th>	
+			<th>Баланс</th>
+			<th>Валюта</th>
+			<th>Статус</th>
+			<th></th>
+		</tr>
+		<tr data-ng-repeat = '(userKey, userValue) in debtorList | customFilter : userSeach' >
+			<td>{{$index+1}}</td>
+			<td>{{userKey}}</td>
+			<td>{{userValue.name}}</td>
+			<td>
+				<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					{{cardInfoValue.number}}
+				</span>
+			</td>
+			<td>
+				<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					{{cardInfoValue.balance | number : 2}}
+				</span>
+			</td>
+			<td>
+				<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					{{cardInfoValue.currency}}
+				</span>
+			</td>
+			<td>
+				<span data-ng-repeat = '(cardInfoKey, cardInfoValue) in userValue.cardInfo'>
+					{{cardInfoValue.status}}
+				</span>
+			</td>
+			<td>
+				<a href="#/userPage"  data-ng-click = 'createActiveUser(userKey)'>Кабинет пользователя</a>
+			</td>
+		</tr>
+	</table>
+</div>
