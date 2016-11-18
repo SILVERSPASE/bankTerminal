@@ -4,6 +4,10 @@ th, td {padding: 5px 10px;}
 td span{display: block;}
 input, select {color:#2169b9; padding: 0 5px; margin: 5px 0; line-height: 30px; height: 30px;}
 table {width: 100%;}
+.tac{text-align: center;}
+.tar{text-align: right;}
+.newUserForm input{margin: 13px 0;}
+h1, h2{text-align: center;     margin: 25px 0 15px 0;}
 
 button, .button, a {display: inline-block;padding: 5px 10px;border: 1px solid #1050a9;margin: 10px 0;background: #003c36;color: #87cdff; transition: .3s;}
 a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;color: #e2fffc; cursor: pointer;}
@@ -20,7 +24,7 @@ a:hover, button:hover, .button:hover{text-decoration: none;background: #1aafa0;c
 .showPromtBlock{left: -22px;width: 331px;}
 
 #popUpMsg-bg { position: absolute; left: 0; right: 0;  top: 0;  bottom: 0;  background: rgba(0,0,0,0.5);}
-#popUpMsg {  top: 30%;  left: 50%;  margin-left: -200px;  width: 400px;  padding: 25px 19px;  background: white;  border-radius: 5px;  position: absolute;  color: #03acff;}
-#popUpMsg .close {  background: black;  color: white;  width: 20px;  height: 20px;  text-align: center;  border-radius: 50%;  position: absolute;  cursor: pointer;  top: 0px;  right: 0px;  display: none;}
-#popUpMsg .content {  text-align: center;  margin-bottom: 10px;}
-#popUpMsg button {    display: block;    margin: 0 auto;    border-radius: 3px;    background: #0072ab;    padding: 5px 20px;    cursor: pointer;    color: white;}
+#popUpMsg {z-index:100; top: 30%;  left: 50%;  margin-left: -200px;  width: 400px;  padding: 25px 19px;  background: white;  border-radius: 5px;  position: absolute;  color: #03acff;}
+#popUpMsg .close { background: black;  color: white;  width: 20px;  height: 20px;  text-align: center;  border-radius: 50%;  position: absolute;  cursor: pointer;  top: 0px;  right: 0px;  display: none;}
+#popUpMsg .content { text-align: center;  margin-bottom: 10px;}
+#popUpMsg button { display: block;    margin: 0 auto;    border-radius: 3px;    background: #0072ab;    padding: 5px 20px;    cursor: pointer;    color: white;}

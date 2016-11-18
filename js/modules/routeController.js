@@ -1,15 +1,15 @@
 app.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'mainPage.html'
+      templateUrl: 'templates/mainPage.html'
     })
     .when('/userPage', {
-      templateUrl: 'userPage.html'
+      templateUrl: 'templates/userPage.html'
     })
     .when('/ocean', {
-      templateUrl: 'ocean.html'
+      templateUrl: 'templates/ocean.html'
     })
     .when('/debtor', {
-      templateUrl: 'debtor.html'
+      templateUrl: 'templates/debtor.html'
     });
 });
